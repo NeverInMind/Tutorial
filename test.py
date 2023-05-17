@@ -7,7 +7,7 @@ while True:
         try:
             i = 1 
             if operator == '+':
-                result += operand
+                result += operan
             elif operator == '-':
                 result -= operand
             elif operator == '/':
