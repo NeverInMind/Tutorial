@@ -1,3 +1,11 @@
-first_name = 'Volodymyr'
-last_name = 'Sytnyk'
-full_name = first_name + ' ' + last_name
+def is_spam_words(text, spam_words, space_around=False):
+    for spam_word in spam_words:
+        result = text.lower().find(spam_word)
+        if result != -1:
+
+            return result
+        else:
+            return False
+
+
+print(is_spam_words("Ты лох.", ["лох"]))
