@@ -1,6 +1,22 @@
-first_name = "Stepan"
-last_name = "Bandera"
-full_name = first_name + " " + last_name
-message = f"Dear {first_name}, we inform you that you have purchased a ticket to travel\
-    to the island of Mauritius. Departure June 31 of this year. Have a passport at \
-        {full_name}. We are looking forward to seeing you!"
+CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
+TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n",
+               "o", "p", "r", "s", "t", "u",
+               "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je",
+               "i", "ji", "g")
+
+TRANS = {}
+
+
+CYRILLIC_SYMBOLS_TUP = tuple(CYRILLIC_SYMBOLS)
+for c, l in zip(CYRILLIC_SYMBOLS_TUP, TRANSLATION):
+    TRANS[ord(c)] = l
+    TRANS[ord(c.upper())] = l.upper()
+
+
+def translate(name):
+    global TRANS
+    result = name.translate(TRANS)
+    return result
+
+
+print(translate('чаша'))
