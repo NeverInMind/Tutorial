@@ -1,7 +1,6 @@
 def is_spam_words(text, spam_words, space_around=False):
     for spam_word in spam_words:
         result = text.lower().find(spam_word)
-        check = False
         if result != -1:
             if space_around:
                 if text[result - 1] == ' ':
