@@ -1,5 +1,9 @@
-name = input("Your name? ")
-email = input("Your email? ")
-age = int(input('Your age? '))
-height = float(input('Your height? '))
-is_active = bool(input('Are you active? '))
+import re
+
+
+def find_all_links(text):
+    result = []
+    iterator = re.finditer(r"", text)
+    for match in iterator:
+        result.append(match.group())
+    return result
