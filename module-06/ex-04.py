@@ -1,6 +1,4 @@
-def is_check_name(fullname, first_name):
-    prefix = fullname.split(' ')
-    if first_name == prefix[0]:
-        return True
-    else:
-        return False
+def add_employee_to_file(record, path):
+    pf = open(path, 'a')
+    pf.write(f'{record}\n')
+    pf.close()
