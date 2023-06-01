@@ -1,22 +1,15 @@
-CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
-TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n",
-               "o", "p", "r", "s", "t", "u",
-               "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je",
-               "i", "ji", "g")
-
-TRANS = {}
-
-
-CYRILLIC_SYMBOLS_TUP = tuple(CYRILLIC_SYMBOLS)
-for c, l in zip(CYRILLIC_SYMBOLS_TUP, TRANSLATION):
-    TRANS[ord(c)] = l
-    TRANS[ord(c.upper())] = l.upper()
+def sanitize_file(source, output):
+    with open(source, 'r') as pf:
+        lines = pf.readline()
+        no_digit = ''
+        for i in lines:
+            if not i.isdigit():
+                no_digit += i
+    with open(output, 'w') as of:
+        of.write(no_digit)
 
 
-def translate(name):
-    global TRANS
-    result = name.translate(TRANS)
-    return result
+source_path = ".\source-07.txt"
+output_path = ".\output-07.txt"
 
-
-print(translate('чаша'))
+sanitize_file(source_path, output_path)
