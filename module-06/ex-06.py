@@ -1,10 +1,15 @@
 def get_recipe(path, search_id):
     with open(path, 'r') as pf:
         lines = pf.readlines()
-        if search_id in lines:
-            print('Yes')
-        else:
-            print('No')
+        for i in lines:
+            res = i.strip().split(',')
+            if res[0] == search_id:
+                recipe = {
+                    "id": res[0],
+                    "name": res[1],
+                    "ingredients": res[2:]
+                }
+                return recipe
 
 
 file_path = ".\ex-06.txt"
