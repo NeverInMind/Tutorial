@@ -1,9 +1,7 @@
-def formatted_numbers():
-    res_arr = ['|{:^10}|{:^10}|{:^10}|'.format('decimal', 'hex', 'binary')]
-    for i in range(0, 16):
-        res_arr.append('|{:<10d}|{:^10x}|{:>10b}|'.format(i, i, i))
-    return res_arr
-
-
-for el in formatted_numbers():
-    print(el)
+def is_equal_string(utf8_string, utf16_string):
+    utf8_string = utf8_string.decode('utf-8')
+    utf16_string = utf16_string.decode('utf-16')
+    if utf16_string == utf8_string:
+        return True
+    else:
+        return False
