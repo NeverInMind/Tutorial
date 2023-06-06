@@ -1,8 +1,5 @@
-import re
+import shutil
 
 
-def find_all_phones(text):
-    pattern = r"\+{1}[0-9]{3}\([0-9]{2}\)[0-9]{3}-[0-9]{1}-[0-9]{3}" \
-        r"|\+{1}[0-9]{3}\([0-9]{2}\)[0-9]{3}-[0-9]{2}-[0-9]{2}"
-    result = re.findall(pattern, text)
-    return result
+def unpack(archive_path, path_to_unpack):
+    shutil.unpack_archive(archive_path, path_to_unpack)
