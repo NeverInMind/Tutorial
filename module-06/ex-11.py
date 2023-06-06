@@ -1,11 +1,11 @@
-import re
+def get_credentials_users(path):
+    with open(path, 'rb') as pf:
+        new_arr = []
+        data = pf.readlines()
+        for i in data:
+            new_arr.append(i.strip().decode())
+        print(new_arr)
 
 
-def find_all_words(text, word):
-    result = re.findall(word, text, flags=re.I)
-    return result
-
-
-text = 'Python also pythOn and this also PyThoN'
-
-find_all_words(text, 'Python')
+file_path = ".\\user_info.txt"
+get_credentials_users(file_path)
