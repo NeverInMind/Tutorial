@@ -1,10 +1,16 @@
-import re
+import base64
 
 
-def replace_spam_words(text, spam_words):
-    for spam_word in spam_words:
-        text = re.sub(spam_word, '*' * len(spam_word), text, flags=re.I)
-    return text
+def encode_data_to_base64(data):
+    new_arr = []
+    for i in data:
+        message_bytes = i.encode("utf-8")
+        base64_bytes = base64.b64encode(message_bytes)
+        base64_message = base64_bytes.decode("utf-8")
+        new_arr.append(base64_message)
+    return new_arr
 
 
-replace_spam_words('Молох бог ужасен.', 'лох')
+arr = ['andry:uyro18890D', 'steve:oppjM13LL9e']
+
+encode_data_to_base64(arr)
