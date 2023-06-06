@@ -1,25 +1,12 @@
-import re
+def save_credentials_users(path, users_info):
+    b_list = []
+    for user, password in users_info.items():
+        b_list.append((f"{user}:{password}\n").encode())
+    with open(path, 'wb') as file:
+        file.writelines(b_list)
 
 
-def find_word(text, word):
-    re_check = re.search(word, text)
-    if re_check is not None:
-        result = True
-        result_span = re_check.span()
-        result_str = re_check.group()
-        sample = {
-            'result': result,
-            'first_index': result_span[0],
-            'last_index': result_span[1],
-            'search_string': result_str,
-            'string': re_check.string
-        }
-    else:
-        sample = {
-            'result': False,
-            'first_index': None,
-            'last_index': None,
-            'search_string': result_str,
-            'string': re_check.string
-        }
-    return sample
+data = {'andry': 'uyro18890D', 'steve': 'oppjM13LL9e'}
+file_path = ".\\user_info.txt"
+
+save_credentials_users(file_path, data)
