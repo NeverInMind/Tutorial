@@ -20,12 +20,7 @@ def translate(name):
     return result
 
 
-def normalize(folder):
-    if folder.is_dir():
-        name = translate(str(folder))
-        name = re.sub(r'\W', '_', name)
-    else:
-        name = folder.stem
-        name = translate(name)
-        name = re.sub(r'\W', '_', name)
+def normalize(old_name):
+    name = translate(old_name)
+    name = re.sub(r'\W', '_', name)
     return name
