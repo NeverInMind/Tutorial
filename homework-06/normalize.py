@@ -1,6 +1,4 @@
 import re
-import os
-from pathlib import Path
 # unpacking the tuple
 
 CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
@@ -27,7 +25,7 @@ def normalize(folder):
         name = translate(str(folder))
         name = re.sub(r'\W', '_', name)
     else:
-        name, file_extension = os.path.splitext(folder)
+        name = folder.stem
         name = translate(name)
         name = re.sub(r'\W', '_', name)
-    print(name)
+    return name
