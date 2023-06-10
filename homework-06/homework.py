@@ -51,6 +51,10 @@ def sort_folder(path: Path) -> None:
                     new_path = path.joinpath(cat).joinpath(item.stem)
                     unpack_archive(item, new_path)
                 move_file(item, path, cat)
+    for item in path.glob('**/*'):
+        if item.is_dir():
+            new_path = item.parent.joinpath(normalize(item.name))
+            item.replace(new_path)
 
 
 def unpack_archive(path: Path, new_path: Path):
