@@ -1,6 +1,7 @@
 from normalize import normalize
 import sys
 import shutil
+import os
 from pathlib import Path
 
 CATEGORIES = {
@@ -29,26 +30,54 @@ def get_categories(path: Path) -> str:
 
 
 def sort_folder(path: Path) -> None:
+    ignore_path = []
+
+    for i in CATEGORIES:
+        path_to_ignore = path.joinpath(i)
+        ignore_path.append(path_to_ignore)
+
     for item in path.glob('**/*'):
+        need_to_ignore = False
         if item.is_file():
             cat = get_categories(item)
-            if cat == 'archives':
-                new_path = path.joinpath(cat).joinpath(item.stem)
-                print(new_path)
-                unpack_archive(item, new_path)
+            for check in ignore_path:
+                if check not in list(item.parents):
+                    continue
+                else:
+                    need_to_ignore = True
+                    break
+            if need_to_ignore is False:
+                if cat == 'archives':
+                    new_path = path.joinpath(cat).joinpath(item.stem)
+                    unpack_archive(item, new_path)
                 move_file(item, path, cat)
-            else:
-                move_file(item, path, cat)
-        elif item.name in CATEGORIES:
-            pass
-        else:
-            new_name = item.parent.joinpath(normalize(item.name))
-            item.replace(new_name)
 
 
 def unpack_archive(path: Path, new_path: Path):
     shutil.unpack_archive(path, new_path)
-    pass
+
+
+def removeEmptyFolders(path, removeRoot=True):
+    if not os.path.isdir(path):
+        return
+
+    # remove empty subfolders
+    files = os.listdir(path)
+    if len(files):
+        for f in files:
+            fullpath = os.path.join(path, f)
+            if os.path.isdir(fullpath):
+                removeEmptyFolders(fullpath)
+
+    # if folder empty, delete it
+    files = os.listdir(path)
+    if len(files) == 0 and removeRoot:
+        print("Removing empty folder:", path)
+        os.rmdir(path)
+
+
+def usageString():
+    return 'Usage: %s directory [removeRoot]' % sys.argv[0]
 
 
 def main():
@@ -60,8 +89,10 @@ def main():
     if not path.exists():
         return f'Folder with path {path} doesn"t exist'
     sort_folder(path)
+    removeEmptyFolders(path, removeRoot=True)
     return 'All ok'
 
 
 if __name__ == "__main__":
+    removeRoot = True
     print(main())
