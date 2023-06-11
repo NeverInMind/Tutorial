@@ -47,9 +47,6 @@ def sort_folder(path: Path) -> None:
                     need_to_ignore = True
                     break
             if need_to_ignore is False:
-                if cat == 'archives':
-                    new_path = path.joinpath(cat).joinpath(item.stem)
-                    unpack_archive(item, new_path)
                 move_file(item, path, cat)
     for item in path.glob('**/*'):
         if item.is_dir():
@@ -57,11 +54,16 @@ def sort_folder(path: Path) -> None:
             item.replace(new_path)
 
 
-def unpack_archive(path: Path, new_path: Path):
-    shutil.unpack_archive(path, new_path)
+def unpack_archive(path: Path):
+    for item in path.glob('**/*'):
+        if item.is_file():
+            cat = get_categories(item)
+            if cat == 'archives':
+                new_path = path.joinpath(cat).joinpath(item.stem)
+                shutil.unpack_archive(item, new_path)
 
 
-def removeEmptyFolders(path, removeRoot=True):
+def removeEmptyFolders(path: Path, removeRoot=True):
     if not os.path.isdir(path):
         return
 
@@ -80,8 +82,24 @@ def removeEmptyFolders(path, removeRoot=True):
         os.rmdir(path)
 
 
-def usageString():
-    return 'Usage: %s directory [removeRoot]' % sys.argv[0]
+def get_results(path: Path):
+    know_suffix = []
+    unknown_suffix = []
+    for item in path.glob('*'):
+        print(item.name)
+        for inner in item.glob('**/*'):
+            if inner.is_file():
+                get_suf = inner.suffix.lower()
+                print(inner.name)
+                if get_suf not in know_suffix:
+                    for cat, exts in CATEGORIES.items():
+                        if get_suf in exts:
+                            know_suffix.append(get_suf)
+                    if get_suf not in unknown_suffix and get_suf not in know_suffix:
+                        unknown_suffix.append(get_suf)
+
+    print(f'Known suffix: {know_suffix}')
+    print(f'Unknown suffix: {unknown_suffix}')
 
 
 def main():
@@ -94,6 +112,8 @@ def main():
         return f'Folder with path {path} doesn"t exist'
     sort_folder(path)
     removeEmptyFolders(path, removeRoot=True)
+    unpack_archive(path)
+    get_results(path)
     return 'All ok'
 
 
