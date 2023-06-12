@@ -1,13 +1,13 @@
-def write_employees_to_file(employee_list, path):
-    pf = open(path, 'w')
-    for i in employee_list:
-        for x in i:
-            pf.write(f'{x}\n')
-    pf.close()
+from setuptools import setup
 
 
-file_path = ".\ex-02.txt"
-
-new_list = [['Robert Stivenson,28', 'Alex Denver,30'], ['Drake Mikelsson,19']]
-
-write_employees_to_file(new_list, file_path)
+def do_setup(args_dict, requires):
+    setup(name=args_dict['name'],
+          version=args_dict['version'],
+          description=args_dict['description'],
+          url=args_dict['url'],
+          author=args_dict['author'],
+          author_email=args_dict['author_email'],
+          license=args_dict['license'],
+          packages=args_dict['packages'],
+          install_requires=requires)

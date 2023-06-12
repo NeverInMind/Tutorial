@@ -1,11 +1,15 @@
-def read_employees_from_file(path):
-    pf = open(path, 'r')
-    lines = pf.readlines()
-    new_arr = []
-    for i in lines:
-        new_arr.append(i.split('\n')[0])
-    pf.close()
+from setuptools import setup
 
 
-file_path = ".\ex-02.txt"
-read_employees_from_file(file_path)
+def do_setup(args_dict, requires, entry_points):
+    setup(name=args_dict['name'],
+          version=args_dict['version'],
+          description=args_dict['description'],
+          url=args_dict['url'],
+          author=args_dict['author'],
+          author_email=args_dict['author_email'],
+          license=args_dict['license'],
+          packages=args_dict['packages'],
+          install_requires=requires,
+          entry_points=entry_points
+          )
