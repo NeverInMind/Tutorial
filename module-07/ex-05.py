@@ -1,6 +1,3 @@
-import re
-
-
 def capital_text(s):
     s = s.strip().capitalize()
     check_rule = ['!', '?', '.']

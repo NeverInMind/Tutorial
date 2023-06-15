@@ -1,18 +1,17 @@
-def get_recipe(path, search_id):
-    with open(path, 'r') as pf:
-        lines = pf.readlines()
-        for i in lines:
-            res = i.strip().split(',')
-            if res[0] == search_id:
-                recipe = {
-                    "id": res[0],
-                    "name": res[1],
-                    "ingredients": res[2:]
-                }
-                return recipe
+def solve_riddle(riddle, word_length, start_letter, reverse=False):
+    new_one = riddle.find(start_letter)
+    finder = ''
+    if new_one != -1:
+        if reverse:
+            start = new_one - word_length
+            finder = riddle[new_one:start:-1]
+        else:
+            start = new_one + word_length
+            finder = riddle[new_one:start]
+        return finder
+    else:
+        return finder
 
 
-file_path = ".\ex-06.txt"
-src_id = '60b90c4613067a15887e1ae5'
-
-get_recipe(file_path, src_id)
+test = 'mi1rewopretmi1rewopret'
+print(solve_riddle(test, 5, 'y', False))

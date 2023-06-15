@@ -1,35 +1,20 @@
+def token_parser(s):
+    s = s.replace(" ", "")
+    leks_list = ['+', '-', '/', '*', '(', ')']
+    find_list = []
+    number_set = ''
+    for item in range(0, len(s)):
+        if item == len(s)-1:
+            find_list.append(s[item])
+        if s[item] in leks_list:
+            if number_set != '':
+                find_list.append(number_set)
+                number_set = ''
+            find_list.append(s[item])
+        else:
+            number_set += s[item]
+    return find_list
 
-def save_applicant_data(source, output):
-    with open(output, 'w') as pf:
-        for i in source:
-            write_data = f"{i['name']},{i['specialty']},{i['math']},{i['lang']},\
-                {i['eng']}\
-                \n"
-            pf.writelines(write_data)
 
-
-data = [
-    {
-        "name": "Kovalchuk Oleksiy",
-        "specialty": 301,
-        "math": 175,
-        "lang": 180,
-        "eng": 155,
-    },
-    {
-        "name": "Ivanchuk Boryslav",
-        "specialty": 101,
-        "math": 135,
-        "lang": 150,
-        "eng": 165,
-    },
-    {
-        "name": "Karpenko Dmitro",
-        "specialty": 201,
-        "math": 155,
-        "lang": 175,
-        "eng": 185,
-    },
-]
-output_path = ".\output-08.txt"
-save_applicant_data(data, output_path)
+test = "(2+ 3) *4 - 5 * 3"
+print(token_parser(test))
