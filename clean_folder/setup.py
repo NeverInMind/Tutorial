@@ -4,9 +4,9 @@ setup(
     name='clean-folder',
     version='1.0.1',
     description='Just clean yours folders from garbage',
-    url='http://github.com/dummy_user/useful',
-    author='Flying Circus',
-    author_email='flyingcircus@example.com',
+    url='https://github.com/NeverInMind/Tutorial/tree/main/clean_folder',
+    author='Volodymyr Sytnyk',
+    author_email='volodymyr.sytnyk@sovic.org.ua',
     license='MIT',
     packages=find_namespace_packages()
 )
