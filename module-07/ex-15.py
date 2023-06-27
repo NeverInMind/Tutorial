@@ -1,16 +1,14 @@
-import base64
-
-
-def encode_data_to_base64(data):
+def flatten(data):
     new_arr = []
-    for i in data:
-        message_bytes = i.encode("utf-8")
-        base64_bytes = base64.b64encode(message_bytes)
-        base64_message = base64_bytes.decode("utf-8")
-        new_arr.append(base64_message)
-    return new_arr
-
-
-arr = ['andry:uyro18890D', 'steve:oppjM13LL9e']
-
-encode_data_to_base64(arr)
+    if data == []:
+        return new_arr
+    if type(data[0]) == list:
+        first_list = flatten(data[0])
+        second_list = flatten(data[1:])
+        new_arr = first_list + second_list
+        return new_arr
+    else:
+        first_list = data[:1]
+        second_list = flatten(data[1:])
+        new_arr = first_list + second_list
+        return new_arr
