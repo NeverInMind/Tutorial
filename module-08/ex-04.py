@@ -2,12 +2,11 @@ from random import randrange
 
 
 def get_numbers_ticket(min, max, quantity):
-    if min < 1 or max > 1000 or min > quantity or quantity < max:
+    if min < 1 or max > 1000 or not(min < quantity < max):
         return []
     arr = []
-    check = len(arr)
-    while check != quantity:
-        res = randrange(min, max)
+    while len(arr) != quantity:
+        res = randrange(min, max + 1 )
         if res not in arr:
             arr.append(res)
     arr.sort()
